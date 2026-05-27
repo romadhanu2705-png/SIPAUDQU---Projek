@@ -392,4 +392,3 @@ include '../../../App/Layout/headers.php';
                         <div class="weekly-card-day"><?= htmlspecialchars($item['hari']) ?></div>
                         <div class="weekly-card-date"><?= htmlspecialchars($item['tanggal']) ?> <?= htmlspecialchars($item['bulan']) ?></div>
                       </div>
-                      
