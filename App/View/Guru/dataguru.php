@@ -98,3 +98,48 @@ include '../../../App/Layout/header.php';
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if (empty($teachers)): ?>
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 20px; color: #94a3b8;">
+                                        <?php echo isset($db_error) ? 'Gagal memuat data.' : 'Tidak ada data guru'; ?>
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php $no = 1; foreach($teachers as $teacher): ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo htmlspecialchars($teacher['nama_guru']); ?></td>
+                                        <td><?php echo htmlspecialchars($teacher['no_hp'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($teacher['nama_kelas'] ?? '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($teacher['peran'] ?? '-'); ?></td>
+                                        <td>
+                                            <?php
+                                                $status = $teacher['status'] ?? 'Aktif';
+                                                $statusColor = $status === 'Aktif' ? '#22c55e' : '#ef4444';
+                                                $statusBg   = $status === 'Aktif' ? '#dcfce7' : '#fee2e2';
+                                            ?>
+                                            <span style="background: <?php echo $statusBg; ?>; color: <?php echo $statusColor; ?>; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">
+                                                <?php echo htmlspecialchars($status); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; gap: 6px; align-items: center;">
+                                                <a href="CRUD/editguru.php?id=<?php echo $teacher['id_guru']; ?>"
+                                                   style="color: #3b82f6; text-decoration: none; font-weight: 700; font-size: 0.75rem;">Edit</a>
+                                                <span style="color: #cbd5e1;">|</span>
+                                                <a href="CRUD/hapusguru.php?id=<?php echo $teacher['id_guru']; ?>"
+                                                   style="color: #ef4444; text-decoration: none; font-weight: 700; font-size: 0.75rem;">Hapus</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include '../../../App/Layout/footer.php'; ?>
