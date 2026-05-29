@@ -389,3 +389,142 @@ include '../../../App/Layout/headers.php';
               </tbody>
             </table>
           </div>
+           <?php endif; ?>
+
+        <!-- ============================
+             TAB: AKTIVITAS HARIAN
+             ============================ -->
+        <?php if ($activeTab === 'aktivitas'): ?>
+
+          <div class="section-heading">Laporan Aktivitas Harian</div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tanggal</th>
+                  <th>Hari</th>
+                  <th>Kategori</th>
+                  <th>Guru</th>
+                  <th>Dokumentasi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if(empty($aktivitas_harian)): ?>
+                  <tr><td colspan="6" style="text-align:center; color:#94a3b8; padding: 20px;">Belum ada laporan aktivitas untuk bulan ini.</td></tr>
+                <?php else: ?>
+                  <?php foreach ($aktivitas_harian as $row): ?>
+                  <tr>
+                    <td><?= $row['no'] ?></td>
+                    <td><?= htmlspecialchars($row['tanggal']) ?></td>
+                    <td><?= htmlspecialchars($row['hari']) ?></td>
+                    <td>
+                      <span class="badge <?= htmlspecialchars($row['kategori_class']) ?>">
+                        <?= htmlspecialchars($row['kategori']) ?>
+                      </span>
+                    </td>
+                    <td><?= htmlspecialchars($row['guru']) ?></td>
+                    <td>
+                      <?php if (!empty($row['dokumentasi'])): ?>
+                        <a href="javascript:void(0);" onclick="openModal('<?= htmlspecialchars($row['dokumentasi']) ?>')" style="color:#3b82f6; font-weight:700;">
+                          <i class="fas fa-image"></i> Lihat
+                        </a>
+                      <?php else: ?>
+                        <span style="color:#94a3b8; font-size:0.75rem;">-</span>
+                      <?php endif; ?>
+                    </td>
+                  </tr>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+
+        <?php endif; ?>
+
+        <!-- ============================
+             TAB: PERKEMBANGAN ANAK
+             ============================ -->
+        <?php if ($activeTab === 'perkembangan'): ?>
+
+          <div class="section-heading">Laporan Perkembangan Anak</div>
+          <?php if(empty($perkembangan)): ?>
+            <p style="color:#64748b; font-weight:600;">Belum ada catatan perkembangan untuk bulan ini.</p>
+          <?php else: ?>
+            <?php foreach ($perkembangan as $item): ?>
+            <div class="dev-aspect-card <?= htmlspecialchars($item['card_class']) ?>">
+              <h4><?= $item['icon'] ?> <?= htmlspecialchars($item['aspek']) ?></h4>
+              <p><?= $item['deskripsi'] ?></p>
+            </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+
+        <?php endif; ?>
+
+      </div><!-- .content-card -->
+    </main>
+  </div><!-- .layout-container -->
+
+<!-- Modal for Image Viewing -->
+<div id="imageModal" class="modal" onclick="closeModal(event)">
+  <span class="close" onclick="closeModal(event)">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+<style>
+/* Modal Styles */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 9999; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.8); 
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.modal .close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.modal .close:hover,
+.modal .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+<script>
+function openModal(imageSrc) {
+  var modal = document.getElementById("imageModal");
+  var modalImg = document.getElementById("modalImage");
+  modal.style.display = "flex";
+  modalImg.src = imageSrc;
+}
+
+function closeModal(event) {
+  if (event.target.id === "imageModal" || event.target.className === "close") {
+    var modal = document.getElementById("imageModal");
+    modal.style.display = "none";
+    document.getElementById("modalImage").src = ""; // Clear src
+  }
+}
+</script>
+
+<?php include '../../../App/Layout/footer.php'; ?>
