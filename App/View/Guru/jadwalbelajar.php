@@ -231,3 +231,97 @@ include __DIR__ . '/../../../App/Layout/header.php';
                         </div>
                     </div>
                 </form>
+
+                 <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+                    <a href="CRUD/tambahjadwal.php" style="background-color: #3b82f6; color: white; padding: 10px 24px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 800; font-family: 'Nunito', sans-serif; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="stroke: white;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Tambah Jadwal Belajar
+                    </a>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table class="jadwal-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px; border-right: 1px solid #cbd5e1;">No</th>
+                                <th style="width: 140px; border-right: 1px solid #cbd5e1;">Tanggal</th>
+                                <th style="width: 130px; border-right: 1px solid #cbd5e1;">Halaman</th>
+                                <th style="width: 150px; border-right: 1px solid #cbd5e1;">Kegiatan</th>
+                                <th style="border-right: 1px solid #cbd5e1;">Deskripsi</th>
+                                <th style="width: 120px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(empty($schedules)): ?>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: #94a3b8; padding: 30px;">Tidak ada jadwal kegiatan.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php $no = 1; foreach($schedules as $schedule): ?>
+                                    <?php
+                                        // Format tanggal ke "1 April 2026"
+                                        $months_id = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+                                        $t_parts = explode('-', $schedule['tanggal']);
+                                        $t_formatted = (int)$t_parts[2] . ' ' . $months_id[(int)$t_parts[1]] . ' ' . $t_parts[0];
+                                    ?>
+                                    <tr>
+                                        <td style="text-align: center; font-weight: 800;"><?php echo $no++; ?>.</td>
+                                        <td>
+                                            <div style="font-weight: 800; color: #000;">
+                                                <?php echo $t_formatted; ?>
+                                            </div>
+                                            <div style="font-weight: 800; color: #000; margin-top: 4px;">
+                                                <?php echo htmlspecialchars($schedule['hari']); ?>
+                                            </div>
+                                        </td>
+                                        <td style="font-weight: 800; color: #000; text-align: center;">
+                                            <?php echo htmlspecialchars($schedule['halaman']); ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <span class="badge-pill <?php echo getBadgeClass($schedule['kegiatan']); ?>">
+                                                <?php echo htmlspecialchars($schedule['kegiatan']); ?>
+                                            </span>
+                                        </td>
+                                        <td style="color: #475569; font-weight: 700; font-size: 0.85rem; line-height: 1.5;">
+                                            <?php echo htmlspecialchars($schedule['deskripsi']); ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="CRUD/editjadwal.php?id=<?php echo $schedule['id_jadwal']; ?>" class="action-btn btn-edit" title="Edit">
+                                                <svg class="action-icon" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                                            </a>
+                                            <a href="CRUD/hapusjadwal.php?id=<?php echo $schedule['id_jadwal']; ?>" class="action-btn btn-delete" title="Hapus">
+                                                <svg class="action-icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <div class="toast" id="toast">
+        <?php 
+            echo htmlspecialchars($_SESSION['flash_success']); 
+            unset($_SESSION['flash_success']);
+        ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            var toast = document.getElementById('toast');
+            if(toast) {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(function(){ toast.remove(); }, 500);
+            }
+        }, 3000);
+    </script>
+<?php endif; ?>
+
+<?php include __DIR__ . '/../../../App/Layout/footer.php'; ?>
+
