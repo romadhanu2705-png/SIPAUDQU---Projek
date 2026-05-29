@@ -392,3 +392,21 @@ include '../../../App/Layout/headers.php';
                         <div class="weekly-card-day"><?= htmlspecialchars($item['hari']) ?></div>
                         <div class="weekly-card-date"><?= htmlspecialchars($item['tanggal']) ?> <?= htmlspecialchars($item['bulan']) ?></div>
                       </div>
+                      <div class="weekly-card-body">
+                        <h5 class="weekly-card-title"><?= htmlspecialchars($item['halaman']) ?></h5>
+                        <span class="badge <?= htmlspecialchars($item['badge_class']) ?> weekly-card-badge"><?= htmlspecialchars($item['badge']) ?></span>
+                        <p class="weekly-card-desc"><?= htmlspecialchars($item['deskripsi']) ?></p>
+                      </div>
+                    </div>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+
+      </div><!-- .content-card -->
+    </main>
+  </div><!-- .layout-container -->
+
+<?php include '../../../App/Layout/footer.php'; ?>
