@@ -127,3 +127,107 @@ include __DIR__ . '/../../../App/Layout/header.php';
         vertical-align: middle;
         border-right: 1px solid #e2e8f0;
     }
+
+    .jadwal-table td:last-child {
+        border-right: none;
+    }
+    
+    .badge-pill {
+        display: inline-block;
+        padding: 6px 20px;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 0.8rem;
+        text-align: center;
+        width: 100px;
+    }
+    
+    .badge-pill.mengenal { background: #fee2e2; color: #ef4444; }
+    .badge-pill.mewarnai { background: #f3e8ff; color: #a855f7; }
+    .badge-pill.menghitung { background: #fef3c7; color: #f59e0b; }
+    .badge-pill.motorik { background: #dcfce7; color: #22c55e; }
+    .badge-pill.bermain { background: #e0f2fe; color: #3b82f6; }
+    .badge-pill.default-badge { background: #f1f5f9; color: #475569; }
+    
+    .action-btn {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 4px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .btn-edit { background: #4f46e5; }
+    .btn-delete { background: #ef4444; }
+    
+    .action-icon {
+        width: 16px;
+        height: 16px;
+        stroke: white;
+        stroke-width: 2.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #22c55e;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-weight: 700;
+        box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+        z-index: 9999;
+        animation: slideIn 0.3s ease-out forwards;
+        font-family: 'Nunito', sans-serif;
+    }
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+</style>
+
+<div class="layout-container">
+        <?php include __DIR__ . '/../../../App/Layout/sidebar.php'; ?>
+        
+        <div class="main-content">
+            <div class="absensi-card">
+                <div class="page-title">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Jadwal Kegiatan Pembelajaran (Berbasis Tema)
+                </div>
+                <p style="color: #64748b; font-size: 0.9rem; font-weight: 600; margin-left: 40px; margin-top: 0;">
+                    Atur jadwal kegiatan belajar sesuai tema dan halaman buku
+                </p>
+                
+                <form id="filterForm" method="GET" action="jadwalbelajar.php">
+                    <div class="filter-section">
+                        <div class="filter-item">
+                            <span class="filter-label">Bulan</span>
+                            <div class="filter-input-wrapper">
+                                <input type="month" name="bulan" value="<?php echo htmlspecialchars($current_date); ?>" onchange="document.getElementById('filterForm').submit();">
+                            </div>
+                        </div>
+                        <div class="filter-item">
+                            <span class="filter-label">Tema</span>
+                            <div class="filter-input-wrapper">
+                                <select name="tema" onchange="document.getElementById('filterForm').submit();">
+                                    <?php foreach($themes as $t): ?>
+                                        <option value="<?php echo htmlspecialchars($t); ?>" <?php echo $current_tema === $t ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($t); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
