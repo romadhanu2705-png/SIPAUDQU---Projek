@@ -378,3 +378,24 @@ include '../../../App/Layout/header.php';
         </div>
     </div>
 </div>
+
+<?php if (isset($_SESSION['flash_success'])): ?>
+    <div class="toast" id="toast">
+        <?php 
+            echo htmlspecialchars($_SESSION['flash_success']); 
+            unset($_SESSION['flash_success']);
+        ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            var toast = document.getElementById('toast');
+            if(toast) {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(function(){ toast.remove(); }, 500);
+            }
+        }, 3000);
+    </script>
+<?php endif; ?>
+
+<?php include '../../../App/Layout/footer.php'; ?>
