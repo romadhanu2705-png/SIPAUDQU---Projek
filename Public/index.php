@@ -148,3 +148,198 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SIPAUDQU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Public/css/style.css">
+  <style>
+    .card-footer-links {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .card-footer-links a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 800;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .card-footer-links a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+    .form-section {
+      display: none;
+    }
+    .form-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .eye-icon {
+      padding: 8px;
+      margin-left: -5px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
+    .eye-icon:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Clouds -->
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+
+<div class="page-wrapper">
+  <div class="login-wrapper">
+
+    <!-- Brand -->
+    <div class="login-brand">
+      <div class="logo-text">
+        <span class="s">S</span><span class="i">I</span><span class="p">P</span><span class="a">A</span><span class="u">U</span><span class="d">D</span><span class="q">Q</span><span class="u2">U</span>
+      </div>
+      <div class="logo-subtitle">Sistem Informasi PAUD <span>Qur'an</span></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      
+      <!-- Notifications -->
+      <?php if ($error): ?>
+        <div class="alert alert-danger" id="alertBox">
+          <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($success): ?>
+        <div class="alert alert-success" id="alertBox">
+          <i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?>
+        </div>
+      <?php endif; ?>
+
+      <!-- 1. LOGIN FORM SECTION -->
+      <div id="loginSection" class="form-section active">
+        <h2>Login</h2>
+        <form method="POST" action="index.php">
+          <input type="hidden" name="action" value="login">
+          <!-- Username -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"
+                autocomplete="username"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-lock"></i></span>
+              <input
+                type="password"
+                name="password"
+                id="passwordInput"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+              >
+              <span class="eye-icon" onclick="togglePassword('passwordInput', 'eyeIcon')">
+                <i class="fas fa-eye" id="eyeIcon"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        
+        <div class="card-footer-links">
+          <a onclick="showSection('forgotSection')">Lupa Password?</a>
+          <a onclick="showSection('registerSection')">Belum punya akun? Daftar Sekarang</a>
+        </div>
+      </div>
+
+      <!-- 2. REGISTER FORM SECTION -->
+      <div id="registerSection" class="form-section">
+        <h2>Daftar Akun</h2>
+        <form method="POST" action="index.php">
+          <input type="hidden" name="action" value="register">
+          
+          <!-- Full Name -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-id-card"></i></span>
+              <input
+                type="text"
+                name="nama_wali"
+                placeholder="Nama Lengkap Orang Tua"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- Username -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username Baru"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-lock"></i></span>
+              <input
+                type="password"
+                name="password"
+                id="registerPasswordInput"
+                placeholder="Kata Sandi"
+                required
+              >
+              <span class="eye-icon" onclick="togglePassword('registerPasswordInput', 'registerEyeIcon')">
+                <i class="fas fa-eye" id="registerEyeIcon"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login">
+            <i class="fas fa-user-plus"></i> Daftar Akun
+          </button>
+        </form>
+        
+        <div class="card-footer-links">
+          <a onclick="showSection('loginSection')">Sudah punya akun? Login</a>
+        </div>
+      </div>
