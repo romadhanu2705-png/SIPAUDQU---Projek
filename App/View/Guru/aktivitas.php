@@ -49,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $allStudents = $pdo->query("SELECT id_siswa, nama_siswa FROM murid ORDER BY nama_siswa ASC")->fetchAll();
 $allTeachers = $pdo->query("SELECT id_guru, nama_guru FROM guru ORDER BY nama_guru ASC")->fetchAll();
 
-
+include '../../../App/Layout/header.php';
+?>
 
 <div class="page-wrapper">
     <div class="layout-container">
@@ -160,3 +161,17 @@ $allTeachers = $pdo->query("SELECT id_guru, nama_guru FROM guru ORDER BY nama_gu
     </div>
 </div>
 
+<script>
+function updateFileName(input) {
+    const label = document.getElementById('upload-label');
+    if (input.files && input.files.length > 0) {
+        label.innerText = 'File terpilih: ' + input.files[0].name;
+        label.style.color = '#2563eb';
+    } else {
+        label.innerText = 'Klik untuk pilih file';
+        label.style.color = '#64748b';
+    }
+}
+</script>
+
+<?php include '../../../App/Layout/footer.php'; ?>
