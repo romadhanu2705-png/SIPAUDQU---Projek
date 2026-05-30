@@ -112,3 +112,104 @@ include '../../../../App/Layout/header.php';
                 <div style="overflow-x: auto;">
                     <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
                         <thead>
+ <tr style="background: #f8fafc;">
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">No</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Nama</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Kelas</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">NIS</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Tanggal Lahir</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Jenis Kelamin</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Alamat</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Orang Tua</th>
+                                <th style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php for ($i=0; $i<5; $i++): ?>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">-</td>
+                            </tr>
+                            <?php endfor; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay">
+    <div class="modal-card">
+        <h2 style="margin-top: 0; color: #0047FF; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; margin-bottom: 25px; font-weight: 800; font-family: 'Nunito', sans-serif;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Tambah Data Siswa
+        </h2>
+        
+        <?php if ($error): ?>
+            <div style="background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 700; font-size: 0.9rem; font-family: 'Nunito', sans-serif;"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <form method="POST" style="font-family: 'Nunito', sans-serif;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label class="form-label">Nama Lengkap</label>
+                    <input type="text" name="nama_siswa" required placeholder="Masukkan Nama Lengkap" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">NIS</label>
+                    <input type="text" name="nis" placeholder="Masukkan NIS" class="form-input">
+                </div>
+                
+                <div>
+                    <label class="form-label">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" class="form-input" style="color: #64748b; font-weight: 600;">
+                </div>
+                <div>
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" required class="form-select">
+                        <option value="">~ Pilih Jenis Kelamin ~</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="form-label">Nama Orang Tua/Wali</label>
+                    <input type="text" name="nama_wali" placeholder="Masukkan Nama Orang Tua/Wali" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Kelompok</label>
+                    <select name="id_kelas" class="form-select">
+                        <option value="">~ Pilih Kelompok ~</option>
+                        <?php foreach ($kelas_list as $kelas): ?>
+                            <option value="<?php echo $kelas['id_kelas']; ?>"><?php echo htmlspecialchars($kelas['nama_kelas']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label class="form-label">Alamat</label>
+                <textarea name="alamat" rows="3" placeholder="Masukkan Alamat Lengkap" class="form-input" style="resize: none;"></textarea>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 15px;">
+                <a href="../datasiswa.php" style="padding: 10px 30px; border: 1px solid #c7d2fe; border-radius: 12px; background: white; color: #475569; font-weight: 800; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; justify-content: center;">Batal</a>
+                <button type="submit" style="padding: 10px 30px; border: none; border-radius: 12px; background: #007bff; color: white; font-weight: 800; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,123,255,0.3);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php include '../../../../App/Layout/footer.php'; ?>
