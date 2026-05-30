@@ -154,3 +154,31 @@
     .detail-table td:last-child { border-right: none; }
     .badge-pill-small { display: inline-block; padding: 4px 15px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; }
 </style>
+
+<div class="page-wrapper">
+    <div class="layout-container">
+        <?php include '../../../App/Layout/sidebar.php'; ?>
+        
+        <div class="main-content">
+            <div class="laporan-card">
+                <div class="page-title">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Laporan
+                </div>
+
+                <form method="GET" id="filterForm">
+                    <div class="controls-row">
+                        <input type="month" name="bulan" value="<?php echo htmlspecialchars($current_month); ?>" class="filter-input" onchange="document.getElementById('filterForm').submit();">
+                        <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Cari.." class="search-input" onchange="document.getElementById('filterForm').submit();">
+                    </div>
+                </form>
+
+                <div class="tab-nav">
+                    <a href="Laporanabsensi.php" class="tab-pill active">Laporan Absensi</a>
+                    <a href="Laporanaktivitasharian.php" class="tab-pill">Laporan Aktivitas Harian</a>
+                    <a href="Laporanperkembangananak.php" class="tab-pill">Laporan Perkembangan Anak</a>
+                </div>
