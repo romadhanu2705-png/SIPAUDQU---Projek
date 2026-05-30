@@ -269,3 +269,49 @@ include '../../../App/Layout/header.php';
         </div>
     </div>
 </div>
+
+
+
+<div class="modal-overlay">
+    <div class="modal-card">
+        <a href="<?php echo $close_url; ?>" class="modal-close">✕</a>
+        <h3 class="modal-title">Detail Absensi - <?php echo htmlspecialchars($student_detail['nama_siswa'] ?? 'Siswa'); ?></h3>
+        
+        <div style="max-height: 300px; overflow-y: auto;">
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th style="border-right: 1px solid #cbd5e1;">Tanggal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if(empty($records)): ?>
+                        <tr><td colspan="2" style="color:#94a3b8; padding: 20px;">Siswa hadir penuh / tidak ada rekaman absen.</td></tr>
+                    <?php else: ?>
+                        <?php foreach($records as $rec): 
+                            $bg = ''; $color = ''; $border = '';
+                            if($rec['status'] == 'Izin') { $bg='#fef3c7'; $color='#eab308'; $border='#fde047'; }
+                            elseif($rec['status'] == 'Sakit') { $bg='#fee2e2'; $color='#ef4444'; $border='#fca5a5'; }
+                            elseif($rec['status'] == 'Alpa') { $bg='#e0f2fe'; $color='#3b82f6'; $border='#93c5fd'; }
+                            else { $bg='#dcfce7'; $color='#22c55e'; $border='#86efac'; } // Fallback
+                            
+                            $t_parts = explode('-', $rec['tanggal']);
+                            $months_id = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+                            $t_formatted = (int)$t_parts[2] . ' ' . $months_id[(int)$t_parts[1]] . ' ' . $t_parts[0];
+                        ?>
+                        <tr>
+                            <td><?php echo $t_formatted; ?></td>
+                            <td>
+                                <span class="badge-pill-small" style="background:<?php echo $bg; ?>; color:<?php echo $color; ?>; border:1px solid <?php echo $border; ?>;">
+                                    <?php echo htmlspecialchars($rec['status']); ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
