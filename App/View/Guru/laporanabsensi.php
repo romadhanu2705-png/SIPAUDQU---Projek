@@ -329,3 +329,6 @@ if (isset($_GET['detail'])):
         </div>
     </div>
 </div>
+<?php endif; ?>
+
+<?php include '../../../App/Layout/footer.php'; ?>
