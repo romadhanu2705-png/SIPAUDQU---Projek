@@ -11,6 +11,26 @@ $pdo = \App\Config\Database::connect();
 $current_month = $_GET['bulan'] ?? date('Y-m'); // format YYYY-MM
 $search = $_GET['search'] ?? '';
 
+$query = "
+    SELECT 
+        m.id_siswa, 
+        m.nama_siswa,
+        COALESCE(SUM(CASE WHEN a.status = 'Hadir' THEN 1 ELSE 0 END), 0) as hadir,
+        COALESCE(SUM(CASE WHEN a.status = 'Izin' THEN 1 ELSE 0 END), 0) as izin,
+        COALESCE(SUM(CASE WHEN a.status = 'Sakit' THEN 1 ELSE 0 END), 0) as sakit,
+        COALESCE(SUM(CASE WHEN a.status = 'Alpa' THEN 1 ELSE 0 END), 0) as alpa
+    FROM murid m
+    LEFT JOIN absensi a ON m.id_siswa = a.id_siswa AND DATE_FORMAT(a.tanggal, '%Y-%m') = :bulan
+    WHERE m.nama_siswa LIKE :search
+    GROUP BY m.id_siswa, m.nama_siswa
+    ORDER BY m.nama_siswa ASC
+";
+$stmt = $pdo->prepare($query);
+$stmt->execute(['bulan' => $current_month, 'search' => "%$search%"]);
+$students = $stmt->fetchAll();
+
+include '../../../App/Layout/header.php';
+?>
 
 <style>
     .laporan-card {
