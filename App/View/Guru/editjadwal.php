@@ -100,3 +100,81 @@ include '../../../../App/Layout/header.php';
     .form-input { width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; box-sizing: border-box; outline: none; font-family: 'Nunito', sans-serif; font-weight: 600; color: #94a3b8; background: #fff;}
     .form-input:focus { border-color: #3b82f6; color: #334155; }
 </style>
+<div class="page-wrapper">
+    <div class="layout-container">
+        <?php include '../../../../App/Layout/sidebar.php'; ?>
+        <div class="main-content">
+            <div class="content-card">
+                <h3 style="font-size: 1rem; font-weight: 800; color: #1e293b; margin-bottom: 15px;">🗒️ Jadwal Kegiatan Pembelajaran (Berbasis Tema)</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay">
+    <div class="modal-card">
+        <h2 style="margin-top: 0; color: #0047FF; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; margin-bottom: 30px; font-weight: 800;">
+            ✏️ Edit Jadwal Kegiatan Belajar
+        </h2>
+        
+        <?php if ($error): ?>
+            <div style="background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 700; font-size: 0.9rem;"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;">
+                <div>
+                    <label class="form-label">Tema</label>
+                    <input type="text" name="tema" value="<?php echo htmlspecialchars($jadwal['tema']); ?>" required class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Halaman Buku</label>
+                    <input type="text" name="halaman" value="<?php echo htmlspecialchars($jadwal['halaman'] ?? ''); ?>" class="form-input">
+                </div>
+                
+                <div>
+                    <label class="form-label">Tanggal</label>
+                    <input type="date" name="tanggal" value="<?php echo htmlspecialchars($jadwal['tanggal']); ?>" required class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Jenis Kegiatan</label>
+                    <select name="kegiatan" required class="form-select" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; font-family: inherit; font-weight: 600; color: #94a3b8; background: #fff;">
+                        <option value="Mengenal" <?php echo $jadwal['kegiatan'] === 'Mengenal' ? 'selected' : ''; ?>>Mengenal</option>
+                        <option value="Mewarnai" <?php echo $jadwal['kegiatan'] === 'Mewarnai' ? 'selected' : ''; ?>>Mewarnai</option>
+                        <option value="Menghitung" <?php echo $jadwal['kegiatan'] === 'Menghitung' ? 'selected' : ''; ?>>Menghitung</option>
+                        <option value="Motorik" <?php echo $jadwal['kegiatan'] === 'Motorik' ? 'selected' : ''; ?>>Motorik</option>
+                        <option value="Bermain" <?php echo $jadwal['kegiatan'] === 'Bermain' ? 'selected' : ''; ?>>Bermain</option>
+                        <option value="Outdoor" <?php echo $jadwal['kegiatan'] === 'Outdoor' ? 'selected' : ''; ?>>Outdoor</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="form-label">Hari</label>
+                    <select name="hari" class="form-select" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; font-family: inherit; font-weight: 600; color: #94a3b8; background: #fff;">
+                        <option value="">~ Otomatis ~</option>
+                        <option value="Senin" <?php echo $jadwal['hari'] === 'Senin' ? 'selected' : ''; ?>>Senin</option>
+                        <option value="Selasa" <?php echo $jadwal['hari'] === 'Selasa' ? 'selected' : ''; ?>>Selasa</option>
+                        <option value="Rabu" <?php echo $jadwal['hari'] === 'Rabu' ? 'selected' : ''; ?>>Rabu</option>
+                        <option value="Kamis" <?php echo $jadwal['hari'] === 'Kamis' ? 'selected' : ''; ?>>Kamis</option>
+                        <option value="Jumat" <?php echo $jadwal['hari'] === 'Jumat' ? 'selected' : ''; ?>>Jumat</option>
+                        <option value="Sabtu" <?php echo $jadwal['hari'] === 'Sabtu' ? 'selected' : ''; ?>>Sabtu</option>
+                        <option value="Minggu" <?php echo $jadwal['hari'] === 'Minggu' ? 'selected' : ''; ?>>Minggu</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Deskripsi</label>
+                    <textarea name="deskripsi" rows="3" class="form-input" style="resize: none;"><?php echo htmlspecialchars($jadwal['deskripsi'] ?? ''); ?></textarea>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <a href="../jadwalbelajar.php" style="padding: 8px 30px; border: 2px solid #cbd5e1; border-radius: 20px; background: white; color: #64748b; font-weight: 800; text-decoration: none; font-size: 0.9rem;">Batal</a>
+                <button type="submit" style="padding: 8px 30px; border: none; border-radius: 20px; background: #007bff; color: white; font-weight: 800; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                    💾 Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php include '../../../../App/Layout/footer.php'; ?>
