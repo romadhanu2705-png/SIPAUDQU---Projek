@@ -1,3 +1,17 @@
+<?php
+error_reporting(0);
+ini_set('display_errors', 0);
+session_start();
+
+require_once __DIR__ . '/../../../App/Config/Database.php';
+
+$pdo = \App\Config\Database::connect();
+
+// Get selected month and search term
+$current_month = $_GET['bulan'] ?? date('Y-m'); // format YYYY-MM
+$search = $_GET['search'] ?? '';
+
+
 <style>
     .laporan-card {
         background: #ffffff;
