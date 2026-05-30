@@ -169,17 +169,69 @@
                     </svg>
                     Laporan
                 </div>
-
                 <form method="GET" id="filterForm">
                     <div class="controls-row">
                         <input type="month" name="bulan" value="<?php echo htmlspecialchars($current_month); ?>" class="filter-input" onchange="document.getElementById('filterForm').submit();">
                         <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Cari.." class="search-input" onchange="document.getElementById('filterForm').submit();">
                     </div>
                 </form>
-
                 <div class="tab-nav">
                     <a href="Laporanabsensi.php" class="tab-pill active">Laporan Absensi</a>
                     <a href="Laporanaktivitasharian.php" class="tab-pill">Laporan Aktivitas Harian</a>
                     <a href="Laporanperkembangananak.php" class="tab-pill">Laporan Perkembangan Anak</a>
                 </div>
-                
+
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px; border-right: 1px solid #cbd5e1;">No</th>
+                                <th style="border-right: 1px solid #cbd5e1; text-align: left;">Nama</th>
+                                <th style="width: 80px; border-right: 1px solid #cbd5e1;">Hadir</th>
+                                <th style="width: 80px; border-right: 1px solid #cbd5e1;">Izin</th>
+                                <th style="width: 80px; border-right: 1px solid #cbd5e1;">Sakit</th>
+                                <th style="width: 80px; border-right: 1px solid #cbd5e1;">Alpa</th>
+                                <th style="width: 80px; border-right: 1px solid #cbd5e1;">Total</th>
+                                <th style="width: 100px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(empty($students)): ?>
+                                <tr>
+                                    <td colspan="8" style="text-align: center; color: #94a3b8; padding: 30px;">Tidak ada data murid / absensi.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php $no = 1; foreach($students as $student): 
+                                    $total = $student['hadir'] + $student['izin'] + $student['sakit'] + $student['alpa'];
+                                ?>
+                                    <tr>
+                                        <td style="text-align: center;"><?php echo $no++; ?>.</td>
+                                        <td><?php echo htmlspecialchars($student['nama_siswa']); ?></td>
+                                        <td style="text-align: center;">
+                                            <div class="stat-badge stat-hadir"><?php echo $student['hadir']; ?></div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="stat-badge stat-izin"><?php echo $student['izin']; ?></div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="stat-badge stat-sakit"><?php echo $student['sakit']; ?></div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="stat-badge stat-alpa"><?php echo $student['alpa']; ?></div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $total; ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="?bulan=<?php echo urlencode($current_month); ?>&search=<?php echo urlencode($search); ?>&detail=<?php echo $student['id_siswa']; ?>" class="btn-detail">Lihat Detail</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
