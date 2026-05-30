@@ -343,3 +343,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <a onclick="showSection('loginSection')">Sudah punya akun? Login</a>
         </div>
       </div>
+
+       <!-- 3. FORGOT PASSWORD SECTION -->
+      <div id="forgotSection" class="form-section">
+        <h2>Reset Password</h2>
+        <form method="POST" action="index.php">
+          <input type="hidden" name="action" value="forgot">
+          
+          <!-- Username -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username Anda"
+                required
+              >
+            </div>
+          </div>
+
+          <!-- New Password -->
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fas fa-key"></i></span>
+              <input
+                type="password"
+                name="new_password"
+                id="forgotPasswordInput"
+                placeholder="Password Baru"
+                required
+              >
+              <span class="eye-icon" onclick="togglePassword('forgotPasswordInput', 'forgotEyeIcon')">
+                <i class="fas fa-eye" id="forgotEyeIcon"></i>
+              </span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login">
+            <i class="fas fa-save"></i> Perbarui Password
+          </button>
+        </form>
+        
+        <div class="card-footer-links">
+          <a onclick="showSection('loginSection')">Kembali ke Login</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p>&copy; <?= date('Y') ?> <strong>SIPAUDQU</strong> &mdash; Sistem Informasi PAUD Qur'an</p>
+</footer>
+
+<script>
+// Toggle Password Visibility
+function togglePassword(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const eyeIcon = document.getElementById(iconId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+  } else {
+    input.type = 'password';
+    eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+  }
+}
+
+// Show/Hide Sections
+function showSection(sectionId) {
+  // Hide all sections
+  document.querySelectorAll('.form-section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show target section
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.classList.add('active');
+  }
+  
+  // Hide alerts when switching sections so it looks clean
+  const alertBox = document.getElementById('alertBox');
+  if (alertBox) {
+    alertBox.style.display = 'none';
+  }
+}
+</script>
+
+</body>
+</html>
