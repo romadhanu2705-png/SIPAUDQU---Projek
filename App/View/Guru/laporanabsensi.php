@@ -270,7 +270,21 @@ include '../../../App/Layout/header.php';
     </div>
 </div>
 
-
+<?php 
+if (isset($_GET['detail'])): 
+    $detail_id = $_GET['detail'];
+    // get student name
+    $stmt_name = $pdo->prepare("SELECT nama_siswa FROM murid WHERE id_siswa = ?");
+    $stmt_name->execute([$detail_id]);
+    $student_detail = $stmt_name->fetch();
+    
+    // get records (only showing non-Hadir to match the exception-based detail view in the image)
+    $stmt_records = $pdo->prepare("SELECT tanggal, status FROM absensi WHERE id_siswa = ? AND DATE_FORMAT(tanggal, '%Y-%m') = ? AND status != 'Hadir' ORDER BY tanggal ASC");
+    $stmt_records->execute([$detail_id, $current_month]);
+    $records = $stmt_records->fetchAll();
+    
+    $close_url = "?bulan=" . urlencode($current_month) . "&search=" . urlencode($search);
+?>
 
 <div class="modal-overlay">
     <div class="modal-card">
