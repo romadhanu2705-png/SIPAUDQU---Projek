@@ -48,3 +48,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: ../dataguru.php");
     exit;
 }
+include '../../../../App/Layout/header.php';
+?>
+<style>
+    body { overflow: hidden; }
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    .modal-card { background: white; border-radius: 24px; padding: 40px; width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; font-family: 'Nunito', sans-serif; }
+    .btn { padding: 10px 30px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: none; font-family: 'Nunito', sans-serif; }
+    .btn-cancel { border: 1px solid #c7d2fe; background: white; color: #475569; }
+    .btn-delete { background: #e60000; color: white; box-shadow: 0 4px 10px rgba(230,0,0,0.3); }
+</style>
+
+<div class="page-wrapper">
+    <div class="layout-container">
+        <?php include '../../../../App/Layout/sidebar.php'; ?>
+        <div class="main-content">
+            <div class="content-card">
+                <h3 style="font-size: 1rem; font-weight: 800; color: #1e293b; margin-bottom: 15px;">👩‍🏫 Data Guru</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay">
+    <div class="modal-card">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🗑️</div>
+        <h2 style="margin-top: 0; color: #0047FF; font-size: 1.5rem; font-weight: 800; margin-bottom: 15px;">
+            Hapus Guru?
+        </h2>
+        <p style="color: #64748b; margin-bottom: 30px; font-weight: 600; font-size: 0.95rem;">
+            Data Guru <strong><?php echo htmlspecialchars($teacher['nama_guru']); ?></strong> akan dihapus permanen!<br>
+            <span style="color: #ef4444; font-size: 0.85rem;">Termasuk akun login guru ini.</span>
+        </p>
+
+        <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
+            <a href="../dataguru.php" class="btn btn-cancel">Batal</a>
+            <button type="submit" class="btn btn-delete">Hapus</button>
+        </form>
+    </div>
+</div>
+
+<?php include '../../../../App/Layout/footer.php'; ?>
