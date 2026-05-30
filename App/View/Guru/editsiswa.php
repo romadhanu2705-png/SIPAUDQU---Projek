@@ -199,3 +199,46 @@ include '../../../../App/Layout/header.php';
                     <label class="form-label">Tanggal Lahir</label>
                     <input type="date" name="tanggal_lahir" value="<?php echo htmlspecialchars($student['tanggal_lahir']); ?>" class="form-input" style="color: #64748b; font-weight: 600;">
                 </div>
+<div>
+                    <label class="form-label">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" required class="form-select">
+                        <option value="">~ Pilih Jenis Kelamin ~</option>
+                        <option value="Laki-laki" <?php echo ($student['jenis_kelamin'] === 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
+                        <option value="Perempuan" <?php echo ($student['jenis_kelamin'] === 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="form-label">Nama Orang Tua/Wali</label>
+                    <input type="text" name="nama_wali" value="<?php echo htmlspecialchars($student['nama_wali'] ?? ''); ?>" placeholder="Masukkan Nama Orang Tua/Wali" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Kelompok</label>
+                    <select name="id_kelas" class="form-select">
+                        <option value="">~ Pilih Kelompok ~</option>
+                        <?php foreach ($kelas_list as $kelas): ?>
+                            <option value="<?php echo $kelas['id_kelas']; ?>" <?php echo ($student['id_kelas'] == $kelas['id_kelas']) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($kelas['nama_kelas']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label class="form-label">Alamat</label>
+                <textarea name="alamat" rows="3" placeholder="Masukkan Alamat Lengkap" class="form-input" style="resize: none;"><?php echo htmlspecialchars($student['alamat'] ?? ''); ?></textarea>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 15px;">
+                <a href="../datasiswa.php" style="padding: 10px 30px; border: 1px solid #c7d2fe; border-radius: 12px; background: white; color: #475569; font-weight: 800; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; justify-content: center;">Batal</a>
+                <button type="submit" style="padding: 10px 30px; border: none; border-radius: 12px; background: #007bff; color: white; font-weight: 800; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,123,255,0.3);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php include '../../../../App/Layout/footer.php'; ?>
