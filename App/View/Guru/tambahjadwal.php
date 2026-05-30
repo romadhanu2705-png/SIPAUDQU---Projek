@@ -104,3 +104,74 @@ include '../../../../App/Layout/header.php';
         </div>
     </div>
 </div>
+<div class="modal-overlay">
+    <div class="modal-card">
+        <h2 style="margin-top: 0; color: #0047FF; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; margin-bottom: 25px; font-weight: 800;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Tambah Jadwal Kegiatan Belajar
+        </h2>
+        
+        <?php if ($error): ?>
+            <div style="background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 700; font-size: 0.9rem;"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label class="form-label">Tema</label>
+                    <input type="text" name="tema" required placeholder="Contoh: Binatang" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Halaman Buku</label>
+                    <input type="text" name="halaman" placeholder="Contoh: Halaman 1 atau Outdoor" class="form-input">
+                </div>
+                
+                <div>
+                    <label class="form-label">Tanggal</label>
+                    <input type="date" name="tanggal" required class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Jenis Kegiatan</label>
+                    <select name="kegiatan" required class="form-select">
+                        <option value="">~ Pilih Kegiatan ~</option>
+                        <option value="Mengenal">Mengenal</option>
+                        <option value="Mewarnai">Mewarnai</option>
+                        <option value="Menghitung">Menghitung</option>
+                        <option value="Motorik">Motorik</option>
+                        <option value="Bermain">Bermain</option>
+                        <option value="Outdoor">Outdoor</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="form-label">Hari</label>
+                    <select name="hari" class="form-select">
+                        <option value="">~ Otomatis Berdasarkan Tanggal ~</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                        <option value="Minggu">Minggu</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label class="form-label">Deskripsi Kegiatan</label>
+                <textarea name="deskripsi" rows="3" placeholder="Contoh: Mengenal berbagai jenis hewan dan habitatnya" class="form-input" style="resize: none;"></textarea>
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 15px;">
+                <a href="../jadwalbelajar.php" style="padding: 10px 30px; border: 1px solid #c7d2fe; border-radius: 12px; background: white; color: #475569; font-weight: 800; text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; justify-content: center;">Batal</a>
+                <button type="submit" style="padding: 10px 30px; border: none; border-radius: 12px; background: #007bff; color: white; font-weight: 800; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0,123,255,0.3);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php include '../../../../App/Layout/footer.php'; ?>
