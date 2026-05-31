@@ -26,3 +26,41 @@
             </a>
         </li>
         <li>
+             <a href="/SIPAUDQU/App/View/Guru/datasiswa.php" class="<?= sidebarActive('datasiswa.php') ?>">
+                <span class="nav-icon">👩‍🏫</span>
+                <span>Data Siswa</span>
+            </a>
+        </li>
+        <li>
+            <a href="/SIPAUDQU/App/View/Guru/absensi.php" class="<?= sidebarActive('absensi.php') ?>">
+                <span class="nav-icon">📋</span>
+                <span>Absensi</span>
+            </a>
+        </li>
+        <li>
+            <a href="/SIPAUDQU/App/View/Guru/aktivitas.php" class="<?= sidebarActive('aktivitas.php') ?>">
+                <span class="nav-icon">🎨</span>
+                <span>Aktivitas Harian</span>
+            </a>
+        </li>
+        <li>
+            <a href="/SIPAUDQU/App/View/Guru/jadwalbelajar.php" class="<?= sidebarActive('jadwalbelajar.php') ?>">
+                <span class="nav-icon">📅</span>
+                <span>Jadwal Belajar</span>
+            </a>
+        </li>
+        <li>
+            <a href="/SIPAUDQU/App/View/Guru/Laporanabsensi.php" class="<?= sidebarActive('Laporanabsensi.php') ?>">
+                <span class="nav-icon">📊</span>
+                <span>Laporan</span>
+            </a>
+        </li>
+    </nav>
+
+    <div class="sidebar-logout">
+        <a href="#" onclick="if(confirm('Apakah Anda yakin ingin logout?')) { window.location.href='/SIPAUDQU/App/View/Wali murid/logout.php'; }">
+            <span>↩</span>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
