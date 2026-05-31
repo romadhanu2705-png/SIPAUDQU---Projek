@@ -26,4 +26,17 @@
             </a>
         </li>
         <li>
-            
+            <a href="laporan.php" class="<?= sidebarActive('laporan.php') ?>">
+                <span class="nav-icon">📊</span>
+                <span>Laporan Anak</span>
+            </a>
+        </li>
+    </nav>
+
+    <div class="sidebar-logout">
+        <a href="#" onclick="if(confirm('Apakah Anda yakin ingin logout?')) { window.location.href='logout.php'; }">
+            <span>↩</span>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
