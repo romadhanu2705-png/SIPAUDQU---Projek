@@ -6,8 +6,8 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <p>&copy; <?= date('Y') ?> <strong>SIPAUDQU</strong> &mdash; Sistem Informasi PAUD Qur'an. All rights reserved.</p>
-  <p style="margin-top:4px; opacity:0.7;">Developed with Hamba Allah for PAUD Qur'an</p>
+ <footer class="site-footer">
+    <p>2026 SIPAUDQU - Sistem Informasi PAUD Qur'an</p>
 </footer>
 
 <script>
